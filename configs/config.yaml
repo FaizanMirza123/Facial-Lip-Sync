@@ -92,8 +92,9 @@ stt_tts:
 
   # Text-to-Speech
   tts:
-    provider: "coqui" # coqui or openai_api
-    model: "tts_models/en/ljspeech/tacotron2-DDC"
+    provider: "openai_api"  # openai_api recommended for Python 3.12+ (coqui requires Python <3.12)
+    model: "tts-1"  # tts-1 or tts-1-hd for OpenAI
+    voice: "alloy"  # alloy, echo, fable, onyx, nova, shimmer
     speaker: null
 
   # OpenAI API (if using)

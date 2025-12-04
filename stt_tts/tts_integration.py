@@ -24,7 +24,16 @@ class CoquiTTS:
             model_name: TTS model name
             device: Device to run on
         """
-        from TTS.api import TTS
+        try:
+            from TTS.api import TTS
+        except ImportError:
+            raise ImportError(
+                "Coqui TTS not installed. Coqui TTS requires Python <3.12. "
+                "Options:\n"
+                "1. Use OpenAI TTS API instead (set provider='openai_api')\n"
+                "2. Install alternative TTS: pip install piper-tts\n"
+                "3. Use Python 3.11 or earlier for Coqui TTS support"
+            )
         
         self.device = device
         self.tts = TTS(model_name=model_name).to(device)
@@ -163,7 +172,7 @@ class TTSManager:
     
     def __init__(
         self,
-        provider: str = 'coqui',
+        provider: str = 'openai_api',
         config: Optional[Dict] = None
     ):
         """
@@ -177,11 +186,15 @@ class TTSManager:
         config = config or {}
         
         if provider == 'coqui':
+            print("Warning: Coqui TTS requires Python <3.12")
             self.tts = CoquiTTS(**config)
         elif provider == 'openai_api':
             self.tts = OpenAITTS(**config)
         else:
-            raise ValueError(f"Unknown TTS provider: {provider}")
+            raise ValueError(
+                f"Unknown TTS provider: {provider}. "
+                f"Available: 'openai_api' (recommended for Python 3.12+), 'coqui' (requires Python <3.12)"
+            )
     
     def synthesize(
         self,

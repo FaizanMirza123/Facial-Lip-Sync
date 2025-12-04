@@ -53,6 +53,14 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+**Note for Python 3.12+ users**: Coqui TTS is not compatible with Python 3.12+. The project is configured to use OpenAI TTS API by default. Set your `OPENAI_API_KEY` environment variable to use TTS features, or provide pre-recorded audio files directly.
+
+```bash
+# Set OpenAI API key (optional, for TTS/STT features)
+export OPENAI_API_KEY='your-key-here'  # Linux/Mac
+$env:OPENAI_API_KEY='your-key-here'    # Windows PowerShell
+```
+
 ## Quick Start
 
 ### 1. Training Your Model

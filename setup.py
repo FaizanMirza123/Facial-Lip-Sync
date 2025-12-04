@@ -88,7 +88,6 @@ def verify_installation():
         'librosa': 'Librosa',
         'face_alignment': 'Face Alignment',
         'whisper': 'Whisper',
-        'TTS': 'Coqui TTS',
     }
     
     all_ok = True
@@ -99,6 +98,14 @@ def verify_installation():
         else:
             print(f"  ✗ {name} not found")
             all_ok = False
+    
+    # Check TTS (optional)
+    tts_spec = importlib.util.find_spec('TTS')
+    if tts_spec is not None:
+        print(f"  ✓ Coqui TTS (optional)")
+    else:
+        print(f"  ℹ Coqui TTS not installed (Python 3.12+ incompatible)")
+        print(f"    Use OpenAI TTS API instead (set in config.yaml)")
     
     return all_ok
 
@@ -162,13 +169,24 @@ def main():
         print("! FFmpeg missing (required for video processing)")
     
     print("\n" + "="*60)
+    print("TTS Configuration Note:")
+    print("="*60)
+    print("Coqui TTS is not compatible with Python 3.12+")
+    print("The project is configured to use OpenAI TTS API by default.")
+    print("Set OPENAI_API_KEY environment variable to use TTS features.")
+    print("Alternatively, you can use audio files directly without TTS.")
+    
+    print("\n" + "="*60)
     print("Next Steps:")
     print("="*60)
-    print("1. Prepare your training data:")
+    print("1. Set OpenAI API key (for TTS/STT):")
+    print("   export OPENAI_API_KEY='your-key-here'  # Linux/Mac")
+    print("   $env:OPENAI_API_KEY='your-key-here'  # Windows PowerShell")
+    print("\n2. Prepare your training data:")
     print("   python examples/prepare_data.py --input <videos> --output data/train")
-    print("\n2. Train the model:")
+    print("\n3. Train the model:")
     print("   python examples/train_model.py --data_dir data/train")
-    print("\n3. Run inference:")
+    print("\n4. Run inference:")
     print("   python examples/run_inference.py --image face.jpg --audio speech.wav")
     print("\nSee QUICKSTART.md for detailed instructions")
     print("="*60)

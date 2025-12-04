@@ -18,7 +18,14 @@ resampy>=0.4.2
 # STT/TTS
 openai-whisper>=20230314
 openai>=1.0.0
-TTS>=0.20.0
+# TTS (Coqui) - Python 3.12 compatible alternatives
+# Option 1: Use piper-tts as alternative (lightweight, fast)
+# Option 2: Use bark or tortoise-tts
+# Option 3: Use OpenAI TTS API only (no local TTS needed)
+# Uncomment one of the following based on your preference:
+# piper-tts>=1.2.0  # Lightweight alternative
+# bark>=0.1.0  # High quality but slower
+# For now, TTS is optional - can use OpenAI API for TTS
 
 # Model Training
 numpy>=1.24.0
