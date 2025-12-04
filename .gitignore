@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Model checkpoints
+checkpoints/*.pth
+checkpoints/*.pt
+*.pth
+*.pt
+
+# Data
+data/raw/
+data/processed/
+*.mp4
+*.wav
+*.mp3
+*.avi
+
+# Logs
+logs/
+runs/
+*.log
+tensorboard/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local

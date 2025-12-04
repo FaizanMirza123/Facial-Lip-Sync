@@ -1,0 +1,34 @@
+# Core Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Computer Vision
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+face-alignment>=1.3.5
+dlib>=19.24.0
+
+# Audio Processing
+librosa>=0.10.0
+soundfile>=0.12.0
+scipy>=1.10.0
+resampy>=0.4.2
+
+# STT/TTS
+openai-whisper>=20230314
+openai>=1.0.0
+TTS>=0.20.0
+
+# Model Training
+numpy>=1.24.0
+scikit-learn>=1.3.0
+Pillow>=10.0.0
+tqdm>=4.65.0
+tensorboard>=2.13.0
+
+# Utilities
+pyyaml>=6.0
+python-dotenv>=1.0.0
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.8

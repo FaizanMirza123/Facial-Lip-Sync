@@ -1,0 +1,109 @@
+# Model Configuration
+model:
+  name: "LipSyncModel"
+  audio_encoder:
+    input_channels: 1
+    hidden_dims: [64, 128, 256, 512]
+    mel_bins: 80
+    fps: 25
+
+  face_encoder:
+    backbone: "resnet50"
+    pretrained: true
+    output_dim: 512
+
+  generator:
+    audio_dim: 512
+    face_dim: 512
+    hidden_dim: 512
+    num_layers: 6
+    attention_heads: 8
+
+  discriminator:
+    input_channels: 3
+    hidden_dims: [64, 128, 256, 512]
+
+# Training Configuration
+training:
+  batch_size: 16
+  num_epochs: 100
+  learning_rate: 0.0001
+  beta1: 0.5
+  beta2: 0.999
+
+  # Loss weights
+  loss_weights:
+    reconstruction: 1.0
+    sync_loss: 10.0
+    adversarial: 0.1
+    perceptual: 1.0
+
+  # Checkpointing
+  save_frequency: 5
+  checkpoint_dir: "checkpoints"
+  resume_from: null
+
+  # Logging
+  log_frequency: 10
+  tensorboard_dir: "runs"
+
+# Data Configuration
+data:
+  train_data_dir: "data/train"
+  val_data_dir: "data/val"
+  img_size: 256
+  crop_size: 96 # Mouth region size
+  fps: 25
+
+  # Audio preprocessing
+  audio:
+    sample_rate: 16000
+    n_fft: 800
+    hop_length: 200
+    n_mels: 80
+    win_length: 800
+    window_size: 16 # frames for audio context
+
+# Inference Configuration
+inference:
+  model_path: "checkpoints/best_model.pth"
+  device: "cuda" # cuda or cpu
+  batch_size: 1
+  realtime_mode: true
+
+  # Face detection
+  face_detection:
+    detector: "sfd" # sfd, dlib, or mtcnn
+    landmark_detector: "fan" # face-alignment network
+
+  # Output
+  output:
+    fps: 25
+    quality: "high" # low, medium, high
+    format: "mp4"
+
+# STT/TTS Configuration
+stt_tts:
+  # Speech-to-Text
+  stt:
+    provider: "whisper" # whisper or openai_api
+    model: "base" # tiny, base, small, medium, large
+    language: "en"
+
+  # Text-to-Speech
+  tts:
+    provider: "coqui" # coqui or openai_api
+    model: "tts_models/en/ljspeech/tacotron2-DDC"
+    speaker: null
+
+  # OpenAI API (if using)
+  openai:
+    api_key: null # Set via environment variable OPENAI_API_KEY
+    model: "gpt-4"
+    voice: "alloy"
+
+# Hardware Configuration
+hardware:
+  num_workers: 4
+  pin_memory: true
+  mixed_precision: true
